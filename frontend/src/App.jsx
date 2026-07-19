@@ -1,11 +1,24 @@
 import React from 'react'
 import { auth, googleprovider } from '../utils/firebase.js'
 import { signInWithPopup } from 'firebase/auth'
+import api from '../utils/axios.js'
 
 export const App = () => {
 
+ const handlelogin = async(token)=> {
+  try{
+    const {data} = await api.post("/api/auth/login", {token})
+    console.log(data);
+  }catch(err){
+   console.error("Error during login:", err);
+  }
+ }
+
  const googlelogin = async() =>{
    const data = await signInWithPopup(auth, googleprovider)
+   const token = await data.user.getIdToken()
+   console.log(token);
+   await handlelogin(token)
    console.log(data);
  }
 
