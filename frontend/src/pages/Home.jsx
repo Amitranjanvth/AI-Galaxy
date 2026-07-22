@@ -2,8 +2,13 @@ import React from 'react'
 import { auth, googleprovider } from '../../utils/firebase.js'
 import { signInWithPopup } from 'firebase/auth'
 import api from '../../utils/axios.js'
+import { useSelector } from 'react-redux'
+
 
 export const Home = () => {
+
+  const {userData} = useSelector((state)=>state.user)
+  console.log("User data from Redux store:", userData);
 
  const handlelogin = async(token)=> {
   try{
