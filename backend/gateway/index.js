@@ -23,6 +23,11 @@ app.use(
   proxy(process.env.AUTH_SERVICES)
 );
 app.use("/me",protect, getCurrentUser)
+app.use(
+  "/chat",protect,
+  proxy(process.env.CHAT_SERVICES)
+);
+
 
 
 app.listen(process.env.PORT, () => {
