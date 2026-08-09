@@ -1,22 +1,23 @@
 import React from 'react'
-import { MessagesSquare, PanelLeftIcon, PenBoxIcon, Plus } from 'lucide-react'
+import { MessagesSquare, PanelLeftIcon, PenBoxIcon, Plus, User } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { createConversation } from '../features/createConversation'
 import { getConversation } from '../features/getConversation'
-import { setConversation, addConversation } from '../features/conversationSlice'
+import { setConversations, addConversation, setSelectedConversation} from '../redux/conversationSlice'
 import { useSelector } from 'react-redux'
-import { setSelectedConversation } from '../redux/conversationSlice'
+
 
 
 const Sidebar = () => {
 
     const [collapsed, setcollapsed] = useState(false);
+    const [imageError, setImageError] = useState(false);
     const dispatch = useDispatch();
     useEffect(() => {
         const getConv = async () => {
             const data = await getConversation();
-            dispatch(setConversation(data));
+            dispatch(setConversations(data));
         }
         getConv();
     }, [dispatch]);
@@ -26,7 +27,8 @@ const Sidebar = () => {
         dispatch(addConversation(data));
     }
 
-    const { conversations, selectedConversation } = useSelector(state => state.conversations);
+    const { conversations, selectedConversation } = useSelector(state => state.conversation);
+    const { userData } = useSelector(state => state.user);
 
     return (
         <div className='fixed lg:static inset-0 left-0 z-50 w-[270px] h-screen shrink-0 bg-[#0d0f14] border-r border-white/[0.08]'>
@@ -58,7 +60,7 @@ const Sidebar = () => {
                         const isActive = selectedConversation?._id === conv?._id;
                         return (
                             <div onClick={() => dispatch(setSelectedConversation(conv))} className={`flex items-center gap-2.5 cursor-pointer mb-0.5 px-3 py-2.5 rounded-[10px] border transition-colors duration-150 ${isActive ? "bg-indigo-500/10 border-indigo-500/20" : "bg-transparent border-transparent"}`} >
-                                <div>
+                                <div className={`flex items-center justify-center w-7 h-7 rounded-lg text-slate-500 ${isActive ? "text-indigo-400 bg-indigo-500/10" : "hover:text-slate-200 hover:bg-white/[0.05]"} transition-colors duration-150`}>
                                     <MessagesSquare size={13} />
                                 </div>
                                 <span>{conv.title || "New Conversation"}</span>
@@ -66,9 +68,36 @@ const Sidebar = () => {
                         )
                     })}
                 </div>
-            </div>
+
+                <div className='mx-2.5 h-px bg-white/[0.06]'/>
+                    <div className='px-3.5 py-3.5 '>
+                        {userData ? (
+
+                        <div className='flex items-center gap-2.5 cursor-pointer px-3 py-2.5 rounded-xl border transition-colors duration-150 hover:bg-white/[0.05] hover:border-white/[0.08]'> 
+                         <div className='relative shrink-0'>
+                            {(userData?.avatar || !imageError) ? 
+                            <img className='w-9 h-9 rounded-[10px] object-cover border-2 border-indigo-500/25'
+                             src={userData.avatar} alt="Avatar" onError={() => setImageError(true)} />
+                             : 
+                             <div className='w-9 h-9 rounded-[10px] bg-indigo-500/25 flex items-center justify-center border-2 border-indigo-500/25'>
+                             <User/>
+                             </div>
+                             }
+                            </div>
+
+                        </div> )
+                        : 
+                        <button> 
+                            Login
+                        </button>
+                        }
+                    </div>
+
+                 </div>
+   
 
         </div>
+
     )
 }
 

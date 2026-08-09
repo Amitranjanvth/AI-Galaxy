@@ -19,10 +19,10 @@ app.use(cors({
 }))
 app.use(cookieParser());
 app.use(
-  "/auth",
+  "/api/auth",
   proxy(process.env.AUTH_SERVICES)
 );
-app.use("/me",protect, getCurrentUser)
+app.get("/api/me",protect, getCurrentUser)
 app.use(
   "/chat",protect,
   proxy(process.env.CHAT_SERVICES)

@@ -16,9 +16,6 @@ useEffect(()=>{
   getUser()
 },[])
 
-
-
-
   return (
     <>
       <Home />   
