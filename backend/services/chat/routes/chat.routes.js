@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
   res.send('Chat route is working!');
 });
-router.post("/create-conversation", createConversation);
+router.get("/create-conversation", createConversation);
 router.get("/get-conversations", getConversations);
 router.post("/save-messages", saveMessage);
 router.get("/messages/:conversationId", getMessages);
