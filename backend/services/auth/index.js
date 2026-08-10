@@ -17,6 +17,14 @@ app.get("/", (req, res) => {
   res.send("Auth Services server is running");
 });
 
+
+router.get("/test", (req, res) => {
+  res.json({
+    message: "Auth service is working"
+  });
+});
+
+
 app.listen(process.env.PORT, () => {
   console.log(`Auth Services server is running on port ${process.env.PORT}`);
   connectDB();

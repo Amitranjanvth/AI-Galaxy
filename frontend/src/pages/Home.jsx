@@ -37,7 +37,7 @@ export const Home = () => {
 
   return (
     <>
-      {/* {!userData ? (
+      {!userData ? (
        <div className="bg-gray-100 text-xl font-bold text-center h-screen flex items-center justify-center"> 
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={googlelogin}>
             Continue with google
@@ -51,14 +51,14 @@ export const Home = () => {
        <Artifact />
      </div>
 
-    )} */}
+    )}
 
-      {!userData &&
+      {/* {!userData &&
         <div className="bg-gray-100 text-xl font-bold text-center h-screen flex items-center justify-center">
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={googlelogin}>
             Continue with google
           </button>
-        </div>}
+        </div>} */}
 
     </>
   )

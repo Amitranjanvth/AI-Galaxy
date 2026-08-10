@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    firebaseUID:{
+    firebaseUid: {
         type: String,
         unique: true
     },
-    name : String,
+    name: String,
     email: String,
-    avatar : String
-}, 
-{ timestamps: true }
+    avatar: String
+},
+    { timestamps: true }
 );
 
 const User = mongoose.model("User", userSchema);

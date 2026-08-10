@@ -33,7 +33,7 @@ const Sidebar = () => {
     return (
         <div className='fixed lg:static inset-0 left-0 z-50 w-[270px] h-screen shrink-0 bg-[#0d0f14] border-r border-white/[0.08]'>
             <div className=' flex flex-col h-full'>
-                <div className='flex items-center gap-2.5 px-4 py-4 border-b border-white/[0.08]'>
+                <div className='flex items-center gap-2.5 px-4 py-4 border-b border-white/8'>
                     <div onClick={() => setcollapsed(true)} className='lg:flex items-center justify-center w-7 h-7 rounded-lg text-slate-500 hover: text-slate-200 hover: bg-white/[0.05] transition-colors duration-200 cursor-pointer'>
                         <PanelLeftIcon />
                     </div>

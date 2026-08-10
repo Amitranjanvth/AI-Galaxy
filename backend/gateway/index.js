@@ -6,7 +6,13 @@ import cookieParser from "cookie-parser";
 import { protect } from "./middleware/auth.middleware.js";
 import { getCurrentUser } from "./controller/user.controller.js";
 
+
 dotenv.config();
+
+console.log("AUTH_SERVICES =", process.env.AUTH_SERVICES);
+console.log("PORT =", process.env.PORT);
+console.log("FRONTEND_URL =", process.env.FRONTEND_URL);
+
 
 const app = express();
 
@@ -22,9 +28,9 @@ app.use(
   "/api/auth",
   proxy(process.env.AUTH_SERVICES)
 );
-app.get("/api/me",protect, getCurrentUser)
+app.get("/api/me", protect, getCurrentUser)
 app.use(
-  "/chat",protect,
+  "/chat", protect,
   proxy(process.env.CHAT_SERVICES)
 );
 
