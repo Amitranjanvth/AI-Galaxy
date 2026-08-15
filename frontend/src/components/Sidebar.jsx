@@ -117,7 +117,8 @@ const Sidebar = () => {
                         const isActive = selectedConversation?._id === conv?._id;
                         return (
                             <div onClick={() => dispatch(setSelectedConversation(conv))} className={`flex items-center gap-2.5 cursor-pointer mb-0.5 px-3 py-2.5 rounded-[10px] border transition-colors duration-150 ${isActive ? "bg-indigo-500/10 border-indigo-500/20" : "bg-transparent border-transparent"}`} >
-                                <div className={`flex items-center justify-center w-7 h-7 rounded-lg text-slate-500 ${isActive ? "text-indigo-400 bg-indigo-500/10" : "hover:text-slate-200 hover:bg-white/[0.05]"} transition-colors duration-150`}>
+                                <div className={`flex items-center justify-center w-7 h-7 rounded-lg text-slate-500 
+                                    ${isActive ? "text-indigo-400 bg-indigo-500/10" : "hover:text-slate-200 hover:bg-white/[0.05]"} transition-colors duration-150`}>
                                     <MessagesSquare size={13} />
                                 </div>
                                 <span className='text-sm font-medium text-slate-300 truncate'>{conv.title || "New Conversation"}</span>
