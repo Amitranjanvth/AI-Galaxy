@@ -1,8 +1,10 @@
 import { getModel } from "../config/llmModels.js";
+import { getMemory } from "../config/memory.js";
 
 
 export const chatAgent = async (state) => {
     const llm = getModel("chat")
+    const history = await getMemory(state.conversationId)
     const systemPrompt=`
     You are AI Galaxy, an intelligent AI assistant.
 
@@ -23,20 +25,27 @@ Formatting:
 - Never write headings and content on the same line.
 - Never generate large walls of text.`
 
+    const message = [
+        new SystemMessage(systemPrompt),
+    ]
 
-
-
-
-    const response = await llm.invoke([
-        {
-            role: "system",
-            "content": systemPrompt
-        },
-        {
-            role: "human",
-            "content": state.prompt
+    history.forEach((msg) => {
+        if (msg.role === "user") {
+            message.push(new HumanMessage(msg.content))
         }
-    ])
+        if(msg.role === "Assistant") {
+            message.push(new AIMessage(msg.content))
+        }
+    });
+
+    message.push(new HumanMessage(state.prompt))
+    console.log("Messages sent to LLM:", message)
+
+
+
+
+
+    const response = await llm.invoke(messages)
 
     return {
         ...state,

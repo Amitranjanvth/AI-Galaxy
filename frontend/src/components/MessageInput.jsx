@@ -8,7 +8,14 @@ export const MessageInput = () => {
   const { selectedConversation } = useSelector(state => state.conversation);
   const { messages } = useSelector(state => state.messages);
   const dispatch = useDispatch();
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
+
+    const conv = await createConversation()
+    dispatch(setSelectedConversation(conv))
+    dispatch(addConversation(conv))
+    conversation = conv
+
+
     const payload = {
       prompt: value.trim(),
       conversationId: selectedConversation?.id

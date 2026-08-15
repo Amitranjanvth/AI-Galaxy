@@ -8,7 +8,7 @@ async function getMessages(conversationId) {
     return response;
   }catch (error) {
     console.error('Error fetching messages:', error);
-    return [];
+    return null;
   }
 }
 

@@ -5,6 +5,9 @@ import { graph } from "../graph/state.js";
 export const agent = async(req, res) =>{
     try{
         const {prompt, conversationId} = req.body;
+
+        await addMessage(conversationId, "user", prompt)
+
         await axios.post(`${process.env.CHAT_SERVICE}/save-message`, { 
             conversationId, role: "user", content: prompt
         });
@@ -14,6 +17,8 @@ export const agent = async(req, res) =>{
             conversationId  
         })
         const response = result.aiResponse
+
+        await addMessage(conversationId, "Assistant", response)
         await axios.post(`${process.env.CHAT_SERVICE}/save-message`, { 
             conversationId, role: "Assistant", content: response
         });
